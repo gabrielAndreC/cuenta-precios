@@ -58,8 +58,6 @@ for (let i = 0; i < arrCatalogo.length; i++) {
 }
 
 //Comienza interaccion con el usuario
-
-
 let comprando = confirm("Bienvenido CoderKing")
 
 //Bucle de compra, mientras sea true se evalua comprando, -1 es la toma de la orden, desde cero se decide que se va a hacer con la orden
