@@ -13,12 +13,23 @@
                     
                 </div>
             </div>
-            <p id="totalCarrito">TOTAL = $.00</p>
+            <div class="pagoCarrito">
+                <a id="pagarCarrito" href="./paginas/ticket.html">
+                    <button id="botonCarrito">Pagar</button>
+                </a>
+                <p id="totalCarrito">TOTAL = $.00</p>
+            </div>
         </div>
         <div class="wrapperOrden">
             <div class="tituloBanner">
                 <h1>¡Bienvenido a Coder-King!</h1>
                 <p>Armá tu orden a tu gusto y presioná el botón de continuar.</p>
+            </div>
+            <div class="filtros">
+                <button class="botonFiltros" name = "TODO">Todo</button>
+                <button class="botonFiltros" name = "HAMBURGUESAS">Hamburguesas</button>
+                <button class="botonFiltros" name = "EXTRAS">Extras</button>
+                <button class="botonFiltros" name = "BEBIDAS">Bebidas</button>
             </div>
             <div class="wrapperProductos">
                 <section id="vistaProductos">
@@ -26,6 +37,6 @@
                 </section>
             </div>
         </div>
-        <script src="./main.js"></script>
+        <script src="./scripts/main.js"></script>
     </body>
 </html>

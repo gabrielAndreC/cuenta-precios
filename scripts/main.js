@@ -17,31 +17,33 @@ let total;
 //array de objetos disponibles para elegir
 const arrMenu =[
     {img : "https://cache-backend-mcd.mcdonaldscupones.com/media/image/product$kqX8TYcp/200/200/original?country=ar", 
-    nombre : "Hamburguesa Simple", desc : "prod",  precio : 2000.00, categoria : "HAMBURGUESAS"},
+    nombre : "Hamburguesa Simple", desc : "",  precio : 2000.00, categoria : "HAMBURGUESAS"},
     {img : "https://cache-backend-mcd.mcdonaldscupones.com/media/image/product$kQXnpmyG/200/200/original?country=ar", 
-    nombre : "Hamburguesa Coder", desc : "prod",  precio : 3400.00, categoria : "HAMBURGUESAS"},
+    nombre : "Hamburguesa Coder", desc : "",  precio : 3400.00, categoria : "HAMBURGUESAS"},
     {img : "https://cache-backend-mcd.mcdonaldscupones.com/media/image/product$krXm2g5T/200/200/original?country=ar", 
-    nombre : "Hamburguesa Doble", desc : "prod",  precio : 3200.00, categoria : "HAMBURGUESAS"},
+    nombre : "Hamburguesa Doble", desc : "",  precio : 3200.00, categoria : "HAMBURGUESAS"},
     {img : "https://ecoallpa.com/portal/wp-content/uploads/2020/05/2d88d833bed2bcfa2d7988f217451d7d-product.jpg", 
-    nombre : "Papas fritas", desc : "prod",  precio : 650.00, categoria : "EXTRAS"},
+    nombre : "Papas Fritas", desc : "",  precio : 650.00, categoria : "EXTRAS"},
     {img : "https://ecoallpa.com/portal/wp-content/uploads/2020/05/2d88d833bed2bcfa2d7988f217451d7d-product.jpg", 
-    nombre : "Papas fritas grandes", desc : "prod",  precio : 900.00, categoria : "EXTRAS"},
+    nombre : "Papas Fritas Grandes", desc : "",  precio : 900.00, categoria : "EXTRAS"},
     {img : "https://img.freepik.com/fotos-premium/aros-cebolla-fritos-caja-llevar-aislada_908985-87772.jpg", 
-    nombre : "Aros de Cebolla", desc : "prod",  precio : 800.00, categoria : "EXTRAS"},
+    nombre : "Aros de Cebolla", desc : "",  precio : 800.00, categoria : "EXTRAS"},
     {img : "https://t3.ftcdn.net/jpg/02/29/07/78/360_F_229077882_vk4dlzm9wXQuML6AS2D075w5c3aEmROY.jpg", 
-    nombre : "Gaseosa CoderCola S", desc : "prod",  precio : 800.00, categoria : "BEBIDAS"},
+    nombre : "Gaseosa CoderCola S", desc : "",  precio : 800.00, categoria : "BEBIDAS"},
     {img : "https://t3.ftcdn.net/jpg/02/29/07/78/360_F_229077882_vk4dlzm9wXQuML6AS2D075w5c3aEmROY.jpg", 
-    nombre : "Gaseosa CoderCola M", desc : "prod",  precio : 900.00, categoria : "BEBIDAS"},
+    nombre : "Gaseosa CoderCola M", desc : "",  precio : 900.00, categoria : "BEBIDAS"},
     {img : "https://t3.ftcdn.net/jpg/02/29/07/78/360_F_229077882_vk4dlzm9wXQuML6AS2D075w5c3aEmROY.jpg", 
-    nombre : "Gaseosa CoderCola L", desc : "prod",  precio : 1200.00, categoria : "BEBIDAS"}
+    nombre : "Gaseosa CoderCola L", desc : "",  precio : 1200.00, categoria : "BEBIDAS"}
 ]
 
 //Creacion de cards
 const vistaProductos = document.getElementById("vistaProductos");
-
+let cardColores = ["#ffeed7","#ffe2e2","#e7ffd7","#eaeaff"];
+let colorSeleccionado = "#ffeed7"
 function crearCards(obj) {
     let cardProducto = document.createElement("div");
         cardProducto.id = "cartaProductos";
+        cardProducto.setAttribute("style",`background-color:${colorSeleccionado}`)
     let img = document.createElement("img");
         img.src = obj.img;
     let titulo = document.createElement("h2");
@@ -85,7 +87,10 @@ function crearCards(obj) {
     cardProducto.appendChild(cardContador)
 }
 
-arrMenu.forEach(el => {
+let listaAMostrar = [];
+listaAMostrar = arrMenu;
+
+listaAMostrar.forEach(el => {
     crearCards(el)
 });
 
@@ -112,7 +117,7 @@ configBotones(botonMas,true)
 configBotones(botonMenos,false)
 
 //Sumar al carrito
-const contador = document.getElementsByClassName("contadorProducto");
+let contador = document.getElementsByClassName("contadorProducto");
 
 añadiralCarrito = (el) =>{
     const cantidad = el.value;
@@ -132,7 +137,8 @@ añadiralCarrito = (el) =>{
         arrCarrito.splice([arrCarrito.indexOf(productoExistente)],1);
     }
 }
-    //Mostrar carrito
+
+//Mostrar carrito
 mostrarenCarrito = () =>{
     const contenedor = document.getElementById("items");
     contenedor.innerHTML = "";
@@ -153,29 +159,67 @@ mostrarenCarrito = () =>{
     sumaTotal(arrCarrito);
     document.getElementById("totalCarrito").innerText = `TOTAL = $${total}`
 }
-
-for (let i = 0; i < contador.length; i++) {
-    const el = contador[i];
-    el.addEventListener("change", (event) =>{
-        añadiralCarrito(el)
-        mostrarenCarrito()
-        localStorage.setItem("coderkingCarrito",JSON.stringify(arrCarrito))
-    })
-}
-
-//Recuperar Carrito
-let cargarCarrito = JSON.parse(localStorage.getItem("coderkingCarrito"))
-if (cargarCarrito.length > 0){
-    cargarCarrito.forEach(element => {
-        arrCarrito.push(element)
-    });
+configContadores = () =>{
     for (let i = 0; i < contador.length; i++) {
         const el = contador[i];
-        const producto = arrCarrito.find((element) => element.nombre === el.name);
-        if (producto != undefined){
-            el.value = producto.cantidad;
+        el.addEventListener("change", (event) =>{
+            añadiralCarrito(el)
+            mostrarenCarrito()
+            localStorage.setItem("coderkingCarrito",JSON.stringify(arrCarrito))
+        })
+    }
+}
+configContadores();
+
+//Recuperar Carrito
+let cargarCarrito = [];
+recuperarCarrito = () =>{
+    cargarCarrito = JSON.parse(localStorage.getItem("coderkingCarrito"));
+    if (cargarCarrito != null && cargarCarrito.length > 0){
+        cargarCarrito.forEach(element => {
+            arrCarrito.push(element)
+        });
+        for (let i = 0; i < contador.length; i++) {
+            const el = contador[i];
+            const producto = arrCarrito.find((element) => element.nombre === el.name);
+            if (producto != undefined){
+                el.value = producto.cantidad;
+            }
+        };
+        mostrarenCarrito();
+    }
+}
+recuperarCarrito();
+
+//Configurar Filtros
+const botonFiltro = document.getElementsByClassName("botonFiltros");
+
+for (let i = 0; i < botonFiltro.length; i++) {
+    const boton = botonFiltro[i];
+    boton.addEventListener("click",event=>{
+        if (boton.name != "TODO"){
+            listaAMostrar = arrMenu.filter(el => el.categoria == boton.name)
         }
-    };
-    mostrarenCarrito();
+        else{
+            listaAMostrar = arrMenu;
+        }
+        vistaProductos.innerHTML ="";
+        colorSeleccionado = cardColores[i];
+        listaAMostrar.forEach(el => {
+            crearCards(el)
+        });
+        configBotones(botonMas,true)
+        configBotones(botonMenos,false)
+        contador = document.getElementsByClassName("contadorProducto");
+        configContadores();
+        arrCarrito=[];
+        recuperarCarrito();
+    })
+    boton.setAttribute("style",`background-color:${cardColores[i]}`)
 }
 
+//Eliminar ticket viejo
+const botonPago = document.getElementById("botonCarrito");
+botonPago.addEventListener("click", event =>{
+    localStorage.removeItem("coderkingTicket")
+})

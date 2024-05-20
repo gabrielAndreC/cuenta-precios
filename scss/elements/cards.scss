@@ -9,14 +9,20 @@
 // </div>
 
 #cartaProductos{
-    background-color: #e3e7e9;
+    background-color: #ffeed7;
     margin-bottom: 16px;
     display: flex;
     flex-direction: row;
+    border-radius: 8px;
+    &:first-of-type{
+        border-top-left-radius: unset;
+    }
+    border: 1px solid rgb(185, 185, 185);
     img{
+        border-radius: 4px;
         margin: 8px;
-        height: 200px;
-        width: 200px;
+        height: 125px;
+        width: 125px;
         object-fit: cover;
         background: white;
     }

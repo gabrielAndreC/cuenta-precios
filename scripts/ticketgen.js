@@ -1,10 +1,10 @@
 let ticket = "";
 
 let arrCarrito = [];
-let cargarCarrito = JSON.parse(localStorage.getItem("coderkingCarrito"))
+let cargarCarrito = JSON.parse(localStorage.getItem("coderkingCarrito"));
 let total;
 
-if (cargarCarrito.length > 0){
+if (cargarCarrito != null && cargarCarrito.length > 0){
     cargarCarrito.forEach(element => {
         arrCarrito.push(element)
     });
@@ -35,12 +35,20 @@ function generarTicket(genFecha){
 
 //Generacion del ticket y Precio final
 let impTicket = document.getElementById("ticket");
+let cargarTicket = localStorage.getItem("coderkingTicket");
 
 sumaTotal(arrCarrito);
-if (total > 0){
+if (total > 0 && cargarTicket == null){
         generarTicket(true)
         impTicket.innerText = ticket;
+        localStorage.setItem("coderkingTicket",ticket)
     }
+else if(cargarTicket != null){
+    impTicket.innerText = cargarTicket;
+}
 else{
         impTicket.innerText = "Ha surgido un error realizando su pedido. Vuelve a intentarlo";
     }
+
+//Limpiar carrito viejo
+localStorage.removeItem("coderkingCarrito");
