@@ -16,22 +16,22 @@ let arrCarrito = [];
 let total;
 //array de objetos disponibles para elegir
 const arrMenu =[
-    {img : "https://cache-backend-mcd.mcdonaldscupones.com/media/image/product$kqX8TYcp/200/200/original?country=ar", 
-    nombre : "Hamburguesa Simple", desc : "",  precio : 2000.00, categoria : "HAMBURGUESAS"},
     {img : "https://cache-backend-mcd.mcdonaldscupones.com/media/image/product$kQXnpmyG/200/200/original?country=ar", 
     nombre : "Hamburguesa Coder", desc : "",  precio : 3400.00, categoria : "HAMBURGUESAS"},
-    {img : "https://cache-backend-mcd.mcdonaldscupones.com/media/image/product$krXm2g5T/200/200/original?country=ar", 
-    nombre : "Hamburguesa Doble", desc : "",  precio : 3200.00, categoria : "HAMBURGUESAS"},
-    {img : "https://ecoallpa.com/portal/wp-content/uploads/2020/05/2d88d833bed2bcfa2d7988f217451d7d-product.jpg", 
-    nombre : "Papas Fritas", desc : "",  precio : 650.00, categoria : "EXTRAS"},
-    {img : "https://ecoallpa.com/portal/wp-content/uploads/2020/05/2d88d833bed2bcfa2d7988f217451d7d-product.jpg", 
-    nombre : "Papas Fritas Grandes", desc : "",  precio : 900.00, categoria : "EXTRAS"},
     {img : "https://img.freepik.com/fotos-premium/aros-cebolla-fritos-caja-llevar-aislada_908985-87772.jpg", 
     nombre : "Aros de Cebolla", desc : "",  precio : 800.00, categoria : "EXTRAS"},
     {img : "https://t3.ftcdn.net/jpg/02/29/07/78/360_F_229077882_vk4dlzm9wXQuML6AS2D075w5c3aEmROY.jpg", 
-    nombre : "Gaseosa CoderCola S", desc : "",  precio : 800.00, categoria : "BEBIDAS"},
-    {img : "https://t3.ftcdn.net/jpg/02/29/07/78/360_F_229077882_vk4dlzm9wXQuML6AS2D075w5c3aEmROY.jpg", 
     nombre : "Gaseosa CoderCola M", desc : "",  precio : 900.00, categoria : "BEBIDAS"},
+    {img : "https://cache-backend-mcd.mcdonaldscupones.com/media/image/product$krXm2g5T/200/200/original?country=ar", 
+    nombre : "Hamburguesa Doble", desc : "",  precio : 3200.00, categoria : "HAMBURGUESAS"},
+    {img : "https://t3.ftcdn.net/jpg/02/29/07/78/360_F_229077882_vk4dlzm9wXQuML6AS2D075w5c3aEmROY.jpg", 
+    nombre : "Gaseosa CoderCola S", desc : "",  precio : 800.00, categoria : "BEBIDAS"},
+    {img : "https://ecoallpa.com/portal/wp-content/uploads/2020/05/2d88d833bed2bcfa2d7988f217451d7d-product.jpg", 
+    nombre : "Papas Fritas", desc : "",  precio : 650.00, categoria : "EXTRAS"},
+    {img : "https://cache-backend-mcd.mcdonaldscupones.com/media/image/product$kqX8TYcp/200/200/original?country=ar", 
+    nombre : "Hamburguesa Simple", desc : "",  precio : 2000.00, categoria : "HAMBURGUESAS"},
+    {img : "https://ecoallpa.com/portal/wp-content/uploads/2020/05/2d88d833bed2bcfa2d7988f217451d7d-product.jpg", 
+    nombre : "Papas Fritas Grandes", desc : "",  precio : 900.00, categoria : "EXTRAS"},
     {img : "https://t3.ftcdn.net/jpg/02/29/07/78/360_F_229077882_vk4dlzm9wXQuML6AS2D075w5c3aEmROY.jpg", 
     nombre : "Gaseosa CoderCola L", desc : "",  precio : 1200.00, categoria : "BEBIDAS"}
 ]
