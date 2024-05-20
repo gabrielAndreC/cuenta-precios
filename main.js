@@ -1,7 +1,4 @@
 //Declaracion de funciones y variables
-let total = 0;
-let editar = -1;
-
 function sumaTotal(arr){
     total = 0;
     for (let i = 0; i < arr.length; i++) {
@@ -11,147 +8,174 @@ function sumaTotal(arr){
 }
 
 function limpiarCarrito(){
-    for (let i = 0; i < arrCarrito.length; i++) {
-        if (arrCarrito[i].cantidad <= 0){
-            arrCarrito.splice(i,i+1)
-        }
-    }
+    arrCarrito = [];
 }
 
 //a este carrito se pushearan los elementos elegidos con su cantidad, por ende con su subtotal
-const arrCarrito = [];
-
-let ticket = "";
-
-function generarTicket(genFecha){
-    ticket = "";
-    const fecha = new Date();
-    const fechaHoy = `Fecha: ${('0' + fecha.getDate()).slice(-2)}/${('0' + (fecha.getMonth()+1)).slice(-2)}/${fecha.getFullYear()} Hora: ${fecha.toTimeString()}`;
-    if (genFecha){
-        ticket += `${fechaHoy}\n\n`;
-    }
-    for (let i = 0; i < arrCarrito.length; i++) {
-        const el = arrCarrito[i];
-        el.subtotal = el.precio*el.cantidad;
-        ticket += `${el.cantidad} X ${el.precio}\n${(el.nombre).toUpperCase()}.........SUBTOTAL: $${el.subtotal}\n\n`;
-    }
-    sumaTotal(arrCarrito);
-    ticket += `TOTAL: $${total}`
-}
-
+let arrCarrito = [];
+let total;
 //array de objetos disponibles para elegir
-const arrCatalogo =[
-    prod01 ={ nombre : "Hamburguesa Simple", precio : 1200.00,},
-    prod02 ={ nombre : "Hamburguesa Doble", precio : 1900.00,},
-    prod03 ={ nombre : "Papas Chicas", precio : 800.00,},
-    prod04 ={ nombre : "Papas Grandes", precio : 1000.00,},
-    prod05 ={ nombre : "Gaseosa Cola Chica", precio : 600.00,},
-    prod06 ={ nombre : "Gaseosa Cola Mediana", precio : 900.00,},
-    prod07 ={ nombre : "Gaseosa Cola Grande", precio : 1100.00,},
-    prod08 ={ nombre : "Botella de Agua 500ml", precio : 850.00,},
+const arrMenu =[
+    {img : "https://cache-backend-mcd.mcdonaldscupones.com/media/image/product$kqX8TYcp/200/200/original?country=ar", 
+    nombre : "Hamburguesa Simple", desc : "prod",  precio : 2000.00, categoria : "HAMBURGUESAS"},
+    {img : "https://cache-backend-mcd.mcdonaldscupones.com/media/image/product$kQXnpmyG/200/200/original?country=ar", 
+    nombre : "Hamburguesa Coder", desc : "prod",  precio : 3400.00, categoria : "HAMBURGUESAS"},
+    {img : "https://cache-backend-mcd.mcdonaldscupones.com/media/image/product$krXm2g5T/200/200/original?country=ar", 
+    nombre : "Hamburguesa Doble", desc : "prod",  precio : 3200.00, categoria : "HAMBURGUESAS"},
+    {img : "https://ecoallpa.com/portal/wp-content/uploads/2020/05/2d88d833bed2bcfa2d7988f217451d7d-product.jpg", 
+    nombre : "Papas fritas", desc : "prod",  precio : 650.00, categoria : "EXTRAS"},
+    {img : "https://ecoallpa.com/portal/wp-content/uploads/2020/05/2d88d833bed2bcfa2d7988f217451d7d-product.jpg", 
+    nombre : "Papas fritas grandes", desc : "prod",  precio : 900.00, categoria : "EXTRAS"},
+    {img : "https://img.freepik.com/fotos-premium/aros-cebolla-fritos-caja-llevar-aislada_908985-87772.jpg", 
+    nombre : "Aros de Cebolla", desc : "prod",  precio : 800.00, categoria : "EXTRAS"},
+    {img : "https://t3.ftcdn.net/jpg/02/29/07/78/360_F_229077882_vk4dlzm9wXQuML6AS2D075w5c3aEmROY.jpg", 
+    nombre : "Gaseosa CoderCola S", desc : "prod",  precio : 800.00, categoria : "BEBIDAS"},
+    {img : "https://t3.ftcdn.net/jpg/02/29/07/78/360_F_229077882_vk4dlzm9wXQuML6AS2D075w5c3aEmROY.jpg", 
+    nombre : "Gaseosa CoderCola M", desc : "prod",  precio : 900.00, categoria : "BEBIDAS"},
+    {img : "https://t3.ftcdn.net/jpg/02/29/07/78/360_F_229077882_vk4dlzm9wXQuML6AS2D075w5c3aEmROY.jpg", 
+    nombre : "Gaseosa CoderCola L", desc : "prod",  precio : 1200.00, categoria : "BEBIDAS"}
 ]
 
-//esta string presenta los objetos en el array del catalogo al usuario
-let opciones = "";
-for (let i = 0; i < arrCatalogo.length; i++) {
-    opciones += `${i}. ${arrCatalogo[i].nombre} $${arrCatalogo[i].precio.toFixed(2)} \n`;
+//Creacion de cards
+const vistaProductos = document.getElementById("vistaProductos");
+
+function crearCards(obj) {
+    let cardProducto = document.createElement("div");
+        cardProducto.id = "cartaProductos";
+    let img = document.createElement("img");
+        img.src = obj.img;
+    let titulo = document.createElement("h2");
+        titulo.innerHTML = obj.nombre;
+    let desc = document.createElement("p");
+        desc.innerHTML = obj.desc;
+    let precio = document.createElement("span");
+        precio.innerHTML = `$${obj.precio}.00`;
+    let input = document.createElement("input")
+        input.className = "contadorProducto"
+        input.name = obj.nombre;
+        input.type = "number";
+        input.id = "cantidad";
+        input.min = "0";
+        input.max = "10";
+        input.placeholder = "0";
+        input.disabled = true;
+    let botonMas = document.createElement("button");
+        botonMas.className = "botonMas";
+        botonMas.innerText = "+"
+    let botonMenos = document.createElement("button");
+        botonMenos.className = "botonMenos";
+        botonMenos.innerText = "-"
+
+    vistaProductos.appendChild(cardProducto)
+    
+    cardProducto.appendChild(img)
+
+    let cardInfo = document.createElement("div");
+    cardInfo.className = "cardInfo";
+    cardInfo.appendChild(titulo)
+    cardInfo.appendChild(desc)
+    cardInfo.appendChild(precio)
+    cardProducto.appendChild(cardInfo)
+
+    let cardContador = document.createElement("div");
+    cardContador.className = "cardContador"
+    cardContador.appendChild(botonMenos)
+    cardContador.appendChild(input)
+    cardContador.appendChild(botonMas)
+    cardProducto.appendChild(cardContador)
 }
 
-//Comienza interaccion con el usuario
-let comprando = confirm("Bienvenido CoderKing")
+arrMenu.forEach(el => {
+    crearCards(el)
+});
 
-//Bucle de compra, mientras sea true se evalua comprando, -1 es la toma de la orden, desde cero se decide que se va a hacer con la orden
-while (comprando){
-    let seleccion = undefined;
-    let cantidad = -1
-    if (editar == -1){   
-        while (seleccion == undefined){
-            if (comprando) {
-                seleccion = arrCatalogo[prompt("Este es nuestro menú. Selecione por número lo que desee ordenar:\n\n"+opciones)]
-            }
-            //el usuario elije lo que quiere y cuanto
-            if (seleccion != undefined){
-                cantidad = prompt(`Elegiste: ${seleccion.nombre}.\nVale: $${seleccion.precio.toFixed(2)} c/u \n¿Cuantas llevas?`)
-                if (cantidad <=0) {
-                    seleccion = undefined;
-                }
-            }
+//Configurar botones de mas y menos
+const botonMas = document.getElementsByClassName("botonMas");
+const botonMenos = document.getElementsByClassName("botonMenos");
+
+const activarChange = (elemento) => {
+    let evento = new Event("change");
+    elemento.dispatchEvent(evento)
+};
+
+function configBotones(arr,suma) {
+    for (let i = 0; i < arr.length; i++) {
+        const el = arr[i];
+        const contador = el.parentNode.querySelector('input[type=number]');
+        el.onclick = () =>{
+            suma ? contador.stepUp() : contador.stepDown();
+            activarChange(contador);
         }
-        //de aceptar o ser mayor a cero, se añade al carrito
-        if (cantidad > 0){
-            const productoExistente = arrCarrito.find(({nombre}) => nombre === seleccion.nombre)
-            if (productoExistente == undefined){
-                arrCarrito.push({nombre : seleccion.nombre, precio : seleccion.precio.toFixed(2), cantidad : parseInt(cantidad), subtotal :(seleccion.precio*cantidad).toFixed(2)})
-            }
-            else{
-                productoExistente.cantidad += parseInt(cantidad);
-            }
-            editar = 0
-        }
-    }
-
-    //Confirmar orden O Editar
-    if (editar == 0){
-        sumaTotal(arrCarrito);
-        generarTicket(false)
-        if (arrCarrito.length > 0){
-            editar = parseInt(prompt(`Esta es su orden\n\n${ticket}\n\nPara CONFIRMAR ingrese 1\nPara AÑADIR ALGO ingrese 2\nPara QUITAR ALGO ingrese 3\nPara CANCELAR ingrese 4`))
-        }
-    }
-
-    //Editando
-    switch (editar){
-        case 1 : //Confirmar
-            alert("Disfrute su comida.");
-            comprando = false;
-            break;
-
-        case 2 : //Añadir algo
-            editar = -1;
-            break;
-
-        case 3 : //Quitar algo
-            limpiarCarrito();
-            let orden = "";
-            for (let i = 0; i < arrCarrito.length; i++) {
-                const el = arrCarrito[i]
-                orden += `${i}. ${el.nombre} X ${el.cantidad} = ${el.subtotal}\n`;
-            }
-            let seleccionEditar = true
-            while (seleccionEditar){
-            seleccion = arrCarrito[prompt(`Ingrese el numero que quiere editar\n${orden}`)]
-            if (seleccion != undefined){
-                seleccionEditar = false;
-            }
-            }
-            seleccion.cantidad -= parseInt(prompt(`¿Cuantas ${seleccion.nombre} quiere quitar?`))
-            editar = 0;
-            break;
-
-        case 4 :
-            alert("Pedido Cancelado.")
-            arrCarrito = [];
-            comprando = false;
-            break;
-
-        default :
-            editar = 0;
-            break;
     }
 }
+configBotones(botonMas,true)
+configBotones(botonMenos,false)
 
-//Generacion del ticket y Precio final
-let impTicket = document.getElementById("ticket");
+//Sumar al carrito
+const contador = document.getElementsByClassName("contadorProducto");
 
-if (arrCarrito.length > 0 && comprando == false){
-    limpiarCarrito();
-    sumaTotal(arrCarrito);
-    if (total > 0){
-        generarTicket(true)
-        impTicket.innerText = ticket;
+añadiralCarrito = (el) =>{
+    const cantidad = el.value;
+    let producto = arrMenu.find((element) => element.nombre === el.name);
+    const id = arrMenu.indexOf(producto);
+    producto = arrMenu[id]
+    const productoExistente = arrCarrito.find(({nombre}) => nombre === el.name)
+    
+    if (productoExistente == undefined){
+        arrCarrito.push({nombre : producto.nombre, precio : producto.precio.toFixed(2), cantidad : parseInt(cantidad), subtotal :(producto.precio*cantidad).toFixed(2)})
     }
     else{
-        impTicket.innerText = "Ha surgido un error realizando su pedido. Vuelve a intentarlo";
+        productoExistente.cantidad = parseInt(cantidad);
+        productoExistente.subtotal = parseInt(productoExistente.precio*cantidad).toFixed(2);
     }
+    if (cantidad < 1){
+        arrCarrito.splice([arrCarrito.indexOf(productoExistente)],1);
+    }
+}
+    //Mostrar carrito
+mostrarenCarrito = () =>{
+    const contenedor = document.getElementById("items");
+    contenedor.innerHTML = "";
+    arrCarrito.forEach(el => {
+        const producto = el;
+        
+        const item = document.createElement("div");
+        item.id="itemCarrito";
+        const nombre = document.createElement("p");
+        nombre.innerText = `${producto.cantidad} x ${producto.nombre}`;
+        const subtotal = document.createElement("span")
+        subtotal.innerText = `$${producto.subtotal}`;
+
+        item.appendChild(nombre)
+        item.appendChild(subtotal)
+        contenedor.appendChild(item)
+    });
+    sumaTotal(arrCarrito);
+    document.getElementById("totalCarrito").innerText = `TOTAL = $${total}`
+}
+
+for (let i = 0; i < contador.length; i++) {
+    const el = contador[i];
+    el.addEventListener("change", (event) =>{
+        añadiralCarrito(el)
+        mostrarenCarrito()
+        localStorage.setItem("coderkingCarrito",JSON.stringify(arrCarrito))
+    })
+}
+
+//Recuperar Carrito
+let cargarCarrito = JSON.parse(localStorage.getItem("coderkingCarrito"))
+if (cargarCarrito.length > 0){
+    cargarCarrito.forEach(element => {
+        arrCarrito.push(element)
+    });
+    for (let i = 0; i < contador.length; i++) {
+        const el = contador[i];
+        const producto = arrCarrito.find((element) => element.nombre === el.name);
+        if (producto != undefined){
+            el.value = producto.cantidad;
+        }
+    };
+    mostrarenCarrito();
 }
 

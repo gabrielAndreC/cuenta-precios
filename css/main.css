@@ -1,0 +1,113 @@
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "helvetica";
+}
+* input::-webkit-outer-spin-button,
+* input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+* input[type=number] {
+  -moz-appearance: textfield;
+}
+
+.ventanaCarrito {
+  position: fixed;
+  right: 32px;
+  bottom: 8px;
+  min-height: 200px;
+  min-width: 350px;
+  background-color: white;
+  border: 1px solid black;
+  border-radius: 8px;
+  padding: 8px;
+}
+.ventanaCarrito p {
+  text-align: center;
+  font-size: 24px;
+  font-weight: 900;
+  margin-bottom: 16px;
+}
+.ventanaCarrito .carrito {
+  height: fit-content;
+  margin-bottom: 40px;
+}
+.ventanaCarrito .carrito #itemCarrito {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 16px;
+}
+.ventanaCarrito .carrito #itemCarrito p {
+  text-align: left;
+  font-size: 16px;
+  font-weight: bold;
+}
+.ventanaCarrito .carrito #itemCarrito span {
+  font-size: 16px;
+  font-weight: bold;
+  margin-left: auto;
+}
+.ventanaCarrito #totalCarrito {
+  font-size: 18px;
+  position: absolute;
+  bottom: 16px;
+  right: 16px;
+}
+
+.wrapperOrden {
+  margin: 0 20px;
+}
+.wrapperOrden .tituloBanner {
+  margin-top: 16px;
+  margin-bottom: 32px;
+  text-align: center;
+}
+.wrapperOrden .tituloBanner p {
+  font-size: 24px;
+}
+
+#cartaProductos {
+  background-color: #e3e7e9;
+  margin-bottom: 16px;
+  display: flex;
+  flex-direction: row;
+}
+#cartaProductos img {
+  margin: 8px;
+  height: 200px;
+  width: 200px;
+  object-fit: cover;
+  background: white;
+}
+#cartaProductos .cardInfo {
+  width: 600px;
+  padding: 20px 0;
+  display: flex;
+  flex-direction: column;
+}
+#cartaProductos .cardInfo h2 {
+  font-weight: 900;
+}
+#cartaProductos .cardInfo p {
+  font-weight: 600;
+}
+#cartaProductos .cardInfo span {
+  font-weight: 900;
+  margin-top: auto;
+}
+#cartaProductos .cardContador {
+  margin-top: auto;
+  margin-bottom: 20px;
+}
+#cartaProductos .cardContador button {
+  width: 25px;
+  height: 25px;
+}
+#cartaProductos .cardContador input {
+  width: 50px;
+  height: 25px;
+  text-align: center;
+}
+
+/*# sourceMappingURL=main.css.map */
